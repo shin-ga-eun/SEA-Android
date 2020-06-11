@@ -7,8 +7,9 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bugkillers.sea.activity.main.MainActivity;
 import com.bugkillers.sea.R;
+import com.bugkillers.sea.activity.login.Login;
+import com.bugkillers.sea.activity.signUp.SignUp;
 
 public class IntroActivity extends AppCompatActivity {
 
@@ -22,7 +23,7 @@ public class IntroActivity extends AppCompatActivity {
             @Override
             public void run() {
 
-                Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+                Intent intent = new Intent (getApplicationContext(), Login.class);
                 startActivity(intent); //다음화면으로 넘어감
                 finish();
             }
