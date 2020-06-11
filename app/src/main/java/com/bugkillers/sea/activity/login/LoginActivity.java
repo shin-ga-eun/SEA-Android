@@ -1,4 +1,4 @@
-package com.bugkillers.sea.loginActivity;
+package com.bugkillers.sea.activity.login;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
