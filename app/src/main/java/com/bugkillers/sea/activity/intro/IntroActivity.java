@@ -7,7 +7,7 @@ import android.os.Handler;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.bugkillers.sea.MainActivity;
+import com.bugkillers.sea.activity.main.MainActivity;
 import com.bugkillers.sea.R;
 
 public class IntroActivity extends AppCompatActivity {
