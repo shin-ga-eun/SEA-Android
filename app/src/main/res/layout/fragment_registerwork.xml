@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.main.navigator.registerWork.RegisterWorkFragment">
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
+
+            <!--            image-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_margin="5dp"
+                >
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    >
+                    <ImageView
+                        android:id="@+id/imgArtWork"
+                        android:layout_width="match_parent"
+                        android:layout_height="400dp"
+                        android:layout_marginBottom="5dp"
+                        android:background="#E6E6E6" />
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="100dp"
+                        android:gravity="center"
+                        android:hint="작품이미지를 등록해주세요.."/>
+
+                </RelativeLayout>
+                <Button
+                    android:layout_gravity="end"
+                    android:id="@+id/btnArtWork"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="이미지등록"
+                    android:textSize="15dp" />
+            </LinearLayout>
+
+            <!--            saveArtWorkDto-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp"
+                >
+
+                <!--                작가-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="작가 "
+                        android:textSize="15dp"/>
+
+                    <EditText
+                        android:id="@+id/edtArtist"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:hint="작가명"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <!--                제목 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="작품명"
+                        android:textSize="15dp"/>
+
+                    <EditText
+                        android:id="@+id/edtTitle"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:hint="작품명"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <!--                내용 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="작품설명 "
+                        android:textSize="15dp"/>
+
+                    <EditText
+                        android:id="@+id/edtDescription"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:lines="4"
+                        android:maxLines="100"
+                        android:scrollbars="vertical"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+                <!--                가격 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="가격 "
+                        android:textSize="15dp"/>
+
+                    <EditText
+                        android:inputType="number"
+                        android:id="@+id/edtPrice"
+                        android:layout_width="200dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp" />
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="원 "
+                        android:textSize="15dp"/>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    >
+                    <Button
+                        android:id="@+id/btnSave"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="작품등록"
+                        android:textSize="15dp" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+
+</LinearLayout>
