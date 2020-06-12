@@ -3,23 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
+    app:startDestination="@+id/nav_registerwork">
 
     <fragment
-        android:id="@+id/nav_home"
-        android:name="com.bugkillers.sea.activity.main.ui.home.HomeFragment"
-        android:label="@string/menu_home"
-        tools:layout="@layout/fragment_home" />
+        android:id="@+id/nav_registerwork"
+        android:name="com.bugkillers.sea.activity.main.navigator.registerWork.RegisterWorkFragment"
+        android:label="@string/menu_registerWork"
+        tools:layout="@layout/fragment_registerwork" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.bugkillers.sea.activity.main.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_listwork"
+        android:name="com.bugkillers.sea.activity.main.navigator.listWork.ListWorkFragment"
+        android:label="@string/menu_listWork"
+        tools:layout="@layout/fragment_listwork" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.bugkillers.sea.activity.main.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_rentalstatus"
+        android:name="com.bugkillers.sea.activity.main.navigator.rentalStatus.RentalStatusFragment"
+        android:label="@string/menu_rentalstatus"
+        tools:layout="@layout/fragment_rentalstatus" />
 </navigation>

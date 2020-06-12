@@ -1,4 +1,4 @@
-package com.bugkillers.sea.activity.main.ui.slideshow;
+package com.bugkillers.sea.activity.main.navigator.listWork;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -14,15 +14,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import com.bugkillers.sea.R;
 
-public class SlideshowFragment extends Fragment {
+public class ListWorkFragment extends Fragment {
 
-    private SlideshowViewModel slideshowViewModel;
+    private ListWorkView slideshowViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel =
-                ViewModelProviders.of(this).get(SlideshowViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_slideshow, container, false);
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        slideshowViewModel = ViewModelProviders.of(this).get(ListWorkView.class);
+        View root = inflater.inflate(R.layout.fragment_listwork, container, false);
         final TextView textView = root.findViewById(R.id.text_slideshow);
         slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override

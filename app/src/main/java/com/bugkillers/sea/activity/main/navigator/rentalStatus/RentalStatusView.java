@@ -1,16 +1,16 @@
-package com.bugkillers.sea.activity.main.ui.home;
+package com.bugkillers.sea.activity.main.navigator.rentalStatus;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class HomeViewModel extends ViewModel {
+public class RentalStatusView extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public HomeViewModel() {
+    public RentalStatusView() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
+        mText.setValue("대여현황");
     }
 
     public LiveData<String> getText() {

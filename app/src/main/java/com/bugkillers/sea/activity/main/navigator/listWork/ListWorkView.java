@@ -1,16 +1,16 @@
-package com.bugkillers.sea.activity.main.ui.gallery;
+package com.bugkillers.sea.activity.main.navigator.listWork;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-public class GalleryViewModel extends ViewModel {
+public class ListWorkView extends ViewModel {
 
     private MutableLiveData<String> mText;
 
-    public GalleryViewModel() {
+    public ListWorkView() {
         mText = new MutableLiveData<>();
-        mText.setValue("This is gallery fragment");
+        mText.setValue("작품리스트");
     }
 
     public LiveData<String> getText() {
