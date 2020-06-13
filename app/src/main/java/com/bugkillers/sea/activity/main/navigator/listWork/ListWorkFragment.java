@@ -16,18 +16,13 @@ import com.bugkillers.sea.R;
 
 public class ListWorkFragment extends Fragment {
 
-    private ListWorkView slideshowViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        slideshowViewModel = ViewModelProviders.of(this).get(ListWorkView.class);
-        View root = inflater.inflate(R.layout.fragment_listwork, container, false);
-        final TextView textView = root.findViewById(R.id.text_slideshow);
-        slideshowViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        super.onCreateView(inflater, container, savedInstanceState);
+        final View root = inflater.inflate(R.layout.fragment_listwork, container, false);
+
+
+
         return root;
     }
 }
