@@ -63,7 +63,7 @@ public class Login extends AppCompatActivity {
                     public void run() {
 
                         Toast.makeText(Login.this,"로그인정보: "+isLogin,Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+                        Intent intent = new Intent (getApplicationContext(), LoginTest.class);
                         startActivity(intent);
                         finish();
                     }

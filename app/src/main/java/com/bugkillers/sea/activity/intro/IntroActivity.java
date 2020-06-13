@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.login.Login;
+import com.bugkillers.sea.activity.login.LoginTest;
 import com.bugkillers.sea.activity.signUp.SignUp;
 
 public class IntroActivity extends AppCompatActivity {

@@ -5,6 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
+    <string name="kakao_app_key">057cb23d7904da15ed3b768bf2f046ed</string>>
 
     <string name="menu_mainhome">SEA</string>
     <string name="menu_registerWork">작품등록</string>
