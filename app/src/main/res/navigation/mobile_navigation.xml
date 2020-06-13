@@ -3,7 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_registerwork">
+    app:startDestination="@+id/nav_mainhome">
+
+    <fragment
+        android:id="@+id/nav_mainhome"
+        android:name="com.bugkillers.sea.activity.main.navigator.mainhome.MainHomeFragment"
+        android:label="@string/menu_mainhome"
+        tools:layout="@layout/fragment_mainhome" />
 
     <fragment
         android:id="@+id/nav_registerwork"
@@ -22,4 +28,16 @@
         android:name="com.bugkillers.sea.activity.main.navigator.rentalStatus.RentalStatusFragment"
         android:label="@string/menu_rentalstatus"
         tools:layout="@layout/fragment_rentalstatus" />
+
+    <fragment
+        android:id="@+id/nav_chat"
+        android:name="com.bugkillers.sea.activity.main.navigator.chat.ChatFragment"
+        android:label="@string/menu_chat"
+        tools:layout="@layout/fragment_chat" />
+
+    <fragment
+        android:id="@+id/nav_notice"
+        android:name="com.bugkillers.sea.activity.main.navigator.notice.NoticeFragment"
+        android:label="@string/menu_notice"
+        tools:layout="@layout/fragment_notice" />
 </navigation>

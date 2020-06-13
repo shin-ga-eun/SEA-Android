@@ -1,8 +1,11 @@
 package com.bugkillers.sea.activity.main;
 
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bugkillers.sea.R;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -46,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_registerwork, R.id.nav_listwork, R.id.nav_rentalstatus)
+                R.id.nav_mainhome, R.id.nav_registerwork, R.id.nav_listwork, R.id.nav_rentalstatus, R.id.nav_chat, R.id.nav_notice)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -54,11 +57,15 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navigationView, navController);
     }
 
+    //메인헤더 관련 - 마이페이지 아이콘 클릭시 이동하는 방법?
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+    public void onGroupItemClick(MenuItem item) {
+        Toast.makeText(getApplicationContext(),"마이페이지", Toast.LENGTH_SHORT).show();
     }
 
     @Override
