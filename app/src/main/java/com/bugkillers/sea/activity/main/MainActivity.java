@@ -4,10 +4,12 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bugkillers.sea.R;
+import com.bugkillers.sea.activity.main.navigator.managementWork.delete.DeleteWorkFragment;
+import com.bugkillers.sea.activity.main.navigator.managementWork.list.ListWorkFragment;
+import com.bugkillers.sea.activity.main.navigator.managementWork.update.UpdateWorkFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -22,7 +24,13 @@ import androidx.appcompat.widget.Toolbar;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final int UPDATE = 0;
+    static final int DELETE = 1;
+
     private AppBarConfiguration mAppBarConfiguration;
+    ListWorkFragment listWorkFragment;
+    UpdateWorkFragment updateWorkFragment;
+    DeleteWorkFragment deleteWorkFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         //메인네비게이터
         setContentView(R.layout.activity_main);
+
+        //프래그먼트 화면 등록
+        listWorkFragment = new ListWorkFragment();
+        updateWorkFragment = new UpdateWorkFragment();
+        deleteWorkFragment = new DeleteWorkFragment();
 
         //헤더 툴바
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -55,6 +68,21 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+    }
+
+    //프래그먼트 화면 전환
+    public void onFragmentChange(int index){
+        if(index == UPDATE){
+            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+            navController.navigate(R.id.nav_updatework);
+        }
+        else if(index == DELETE){
+//            NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+//            navController.navigate(R.id.nav_deletework);
+
+
+        }
     }
 
     //메인헤더 관련 - 마이페이지 아이콘 클릭시 이동하는 방법?
