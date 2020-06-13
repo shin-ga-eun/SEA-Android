@@ -6,7 +6,12 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
 
+    <string name="menu_mainhome">SEA</string>
     <string name="menu_registerWork">작품등록</string>
     <string name="menu_listWork">작품리스트</string>
     <string name="menu_rentalstatus">대여현황</string>
+    <string name="menu_chat">채팅</string>
+    <string name="menu_notice">공지사항(FAQ)</string>
+
+
 </resources>

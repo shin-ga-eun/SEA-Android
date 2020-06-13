@@ -21,14 +21,13 @@ import com.bugkillers.sea.R;
 
 public class RegisterWorkFragment extends Fragment {
 
-    private RegisterWorkView registerWorkView;
+//    private RegisterWorkView registerWorkView;
     ImageView imgArtWork;
     Button btnArtWork, btnSave;
     EditText edtArtist, edtTitle, edtDescription, edtPrice;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        registerWorkView = ViewModelProviders.of(this).get(RegisterWorkView.class);
+        super.onCreateView(inflater, container, savedInstanceState);
         final View root = inflater.inflate(R.layout.fragment_registerwork, container, false);
 
         imgArtWork = (ImageView) root.findViewById(R.id.imgArtWork);
