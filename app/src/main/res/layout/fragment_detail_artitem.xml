@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".activity.main.navigator.registerWork.RegisterWorkFragment">
-
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -38,30 +34,45 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="100dp"
                         android:gravity="center"
-                        android:hint="작품이미지를 등록해주세요.."/>
+                        android:hint="상세보기 이미지 가져올 예정"/>
 
                 </RelativeLayout>
-                <Button
-                    android:layout_gravity="end"
-                    android:id="@+id/btnArtWork"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="이미지등록"
-                    android:textSize="15dp" />
+
             </LinearLayout>
 
-            <!--            saveArtWorkDto-->
+            <!--            getArtItemDto-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="300dp"
                 android:orientation="vertical"
                 android:layout_marginLeft="10dp"
                 >
+
+                <!--                작가-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="작가 "
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/textArtist"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp" />
+                </LinearLayout>
 
                 <!--                제목 -->
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -70,11 +81,10 @@
                         android:text="작품명"
                         android:textSize="15dp"/>
 
-                    <EditText
-                        android:id="@+id/edtTitle"
+                    <TextView
+                        android:id="@+id/textTitle"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
-                        android:hint="작품명"
                         android:textSize="15dp" />
                 </LinearLayout>
 
@@ -82,6 +92,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -90,8 +101,8 @@
                         android:text="작품설명 "
                         android:textSize="15dp"/>
 
-                    <EditText
-                        android:id="@+id/edtDescription"
+                    <TextView
+                        android:id="@+id/textDescription"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:inputType="textMultiLine"
@@ -105,6 +116,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -113,10 +125,9 @@
                         android:text="가격 "
                         android:textSize="15dp"/>
 
-                    <EditText
-                        android:inputType="number"
-                        android:id="@+id/edtPrice"
-                        android:layout_width="200dp"
+                    <TextView
+                        android:id="@+id/textPrice"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:textSize="15dp" />
 
@@ -127,6 +138,50 @@
                         android:textSize="15dp"/>
                 </LinearLayout>
 
+                <!--                등록일 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="등록일 "
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/textCreate_at"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+
+                <!--                수정일 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="수정일 "
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/textModify_at"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+                <!--                btnUpdate, btnDelete-->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -135,10 +190,19 @@
                     android:layout_gravity="center"
                     >
                     <Button
-                        android:id="@+id/btnSave"
+                        android:id="@+id/btnUpdate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="작품등록"
+                        android:layout_margin="5dp"
+                        android:text="작품 수정"
+                        android:textSize="15dp" />
+
+                    <Button
+                        android:id="@+id/btnDelete"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="5dp"
+                        android:text="작품 삭제"
                         android:textSize="15dp" />
                 </LinearLayout>
 
@@ -148,7 +212,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-
 
 </LinearLayout>

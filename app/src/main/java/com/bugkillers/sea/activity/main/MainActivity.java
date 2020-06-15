@@ -9,6 +9,7 @@ import android.widget.Toast;
 import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.main.navigator.managementWork.list.ListWorkFragment;
 import com.bugkillers.sea.activity.main.navigator.managementWork.update.UpdateWorkFragment;
+import com.bugkillers.sea.domain.dto.artItem.GetArtItemDto;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -25,10 +26,14 @@ public class MainActivity extends AppCompatActivity {
 
     static final int UPDATE = 0;
     static final int LIST = 1;
+    static final int DETAIL = 2;
 
     private AppBarConfiguration mAppBarConfiguration;
     ListWorkFragment listWorkFragment;
     UpdateWorkFragment updateWorkFragment;
+
+    private GetArtItemDto getArtItemDto;
+    private Long ano;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +83,26 @@ public class MainActivity extends AppCompatActivity {
         else if(index == LIST){
             navController.navigate(R.id.nav_listwork);
         }
+        else if(index == DETAIL){
+            navController.navigate(R.id.nav_detail_artitem);
+        }
+    }
+
+    //list->detail
+    public Long getAno() {
+        return ano;
+    }
+
+    public void setAno(Long ano) {
+        this.ano = ano;
+    }
+
+    //detail->main->update
+    public void setRelay(GetArtItemDto getArtItemDto){
+        this.getArtItemDto = getArtItemDto;
+    }
+    public GetArtItemDto getRelay(){
+        return getArtItemDto;
     }
 
     //메인헤더 관련 - 마이페이지 아이콘 클릭시 이동하는 방법?

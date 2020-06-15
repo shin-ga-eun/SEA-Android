@@ -21,7 +21,8 @@
         android:id="@+id/nav_listwork"
         android:name="com.bugkillers.sea.activity.main.navigator.managementWork.list.ListWorkFragment"
         android:label="@string/menu_listWork"
-        tools:layout="@layout/fragment_listwork" />
+        tools:layout="@layout/activity_main"
+        />
 
     <fragment
         android:id="@+id/nav_rentalstatus"
@@ -47,8 +48,10 @@
         tools:layout="@layout/fragment_updatework" />
 
     <fragment
-        android:id="@+id/nav_deletework"
-        android:name="com.bugkillers.sea.activity.main.navigator.managementWork.delete.DeleteWorkFragment"
-        tools:layout="@layout/fragment_deletework" />
+        android:id="@+id/nav_detail_artitem"
+        android:name="com.bugkillers.sea.activity.main.navigator.managementWork.detail.DetailArtItemFragment"
+        tools:layout="@layout/fragment_detail_artitem" />
+
+
 
 </navigation>

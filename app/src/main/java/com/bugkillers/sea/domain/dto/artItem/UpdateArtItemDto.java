@@ -1,6 +1,6 @@
 package com.bugkillers.sea.domain.dto.artItem;
 
-public class SaveArtItemDto {
+public class UpdateArtItemDto {
     private String title;
     private String description;
     private int price;
@@ -28,6 +28,4 @@ public class SaveArtItemDto {
     public void setPrice(int price) {
         this.price = price;
     }
-
-
 }
