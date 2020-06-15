@@ -4,7 +4,7 @@ package com.bugkillers.sea.domain.entity;
 import java.time.LocalDate;
 
 public class ArtItem {
-    private long id;
+    private long ano;
     private String artist;
     private String title;
     private String description;
@@ -16,12 +16,12 @@ public class ArtItem {
     private int price;
     private String image;
 
-    public long getId() {
-        return id;
+    public long getAno() {
+        return ano;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setAno(long ano) {
+        this.ano = ano;
     }
 
     public String getArtist() {

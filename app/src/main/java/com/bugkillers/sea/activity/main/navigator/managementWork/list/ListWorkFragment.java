@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,11 @@ import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.main.MainActivity;
 import com.bugkillers.sea.activity.main.navigator.managementWork.update.UpdateWorkFragment;
 import com.bugkillers.sea.activity.signUp.SignUp;
+import com.bugkillers.sea.network.NetRetrofit;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class ListWorkFragment extends Fragment {
 
@@ -71,10 +77,38 @@ public class ListWorkFragment extends Fragment {
             public void onClick(View view) {
 
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
-                alert_confirm.setMessage("작품 리스트에서 삭제하시겠습니까?\n현재 대여중인 작품이라면 대여기간 종료 후, 다시 시도해주세요..").setCancelable(false).setPositiveButton("삭제",
+                alert_confirm.setMessage("작품 리스트에서 삭제하시겠습니까?\n\n (현재 대여중인 작품이라면 대여기간 종료 후, 다시 시도해주세요..)").setCancelable(false).setPositiveButton("삭제",
                         new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
+
+                                //delete retrofit
+                                Long ano = Long.parseLong("11"); //test
+                                Call<Void> response= NetRetrofit.getInstance().getNetRetrofitInterface().deleteArtItem(ano);
+                                response.enqueue(new Callback<Void>() {
+                                    @Override
+                                    public void onResponse(Call<Void> call, Response<Void> response) {
+                                        if(response.isSuccessful()) {
+                                            Log.d("Retrofit delete artItem", response.toString());
+                                            Toast.makeText(getContext(), "카드를 성공적으로 삭제하였습니다.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    @Override
+                                    public void onFailure(Call<Void> call, Throwable t) {
+                                        Log.d("Err", t.getMessage());
+                                        Toast.makeText(getContext(), "카드삭제에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+
+                                    }
+
+                                });
+
+
+
+
+
+
+
+
                                 Toast.makeText(getContext(),"작품이 삭제되었습니다..",Toast.LENGTH_SHORT).show();
                             }
                         }).setNegativeButton("취소",
