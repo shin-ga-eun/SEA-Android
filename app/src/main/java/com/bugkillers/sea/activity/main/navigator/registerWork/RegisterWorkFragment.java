@@ -101,7 +101,7 @@ public class RegisterWorkFragment extends Fragment {
                 response.enqueue(new Callback<Void>() {
                     @Override
                     public void onResponse(Call<Void> call, Response<Void> response) {
-                        Log.d("Retrofit", response.toString());
+                        Log.d("Retrofit register artItem", response.toString());
                         Toast.makeText(getContext(),"작품등록성공..",Toast.LENGTH_SHORT).show();
 
                         //keyboard hide
