@@ -64,21 +64,33 @@ public class ListWorkFragment extends ListFragment implements ListViewAdapter.Li
     }
 
     public View onCreateView(@NonNull LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-        //fragment를 inflate해주고 container에 붙임.
 
         adapter = new ListViewAdapter(this);
         setListAdapter(adapter);
 
         //list 서버연동
-        GetAnoAndTitleDto getAnoAndTitleDto = new GetAnoAndTitleDto();
-        getAnoAndTitleDto.setTitle("title1");
-        getAnoAndTitleDto.setAno(Long.parseLong("1"));
-        adapter.addItem(getAnoAndTitleDto);
-        adapter.addItem(getAnoAndTitleDto);
-        adapter.addItem(getAnoAndTitleDto);
-        adapter.addItem(getAnoAndTitleDto);
-        adapter.addItem(getAnoAndTitleDto);
-        adapter.addItem(getAnoAndTitleDto);
+        Call<List<GetAnoAndTitleDto>> response = NetRetrofit.getInstance().getNetRetrofitInterface().getListArtItem();
+        response.enqueue(new Callback<List<GetAnoAndTitleDto>>() {
+            @Override
+            public void onResponse(Call<List<GetAnoAndTitleDto>> call, Response<List<GetAnoAndTitleDto>> response) {
+                if(response.isSuccessful()){
+                    List<GetAnoAndTitleDto> list = response.body();
+
+                    for(GetAnoAndTitleDto getAnoAndTitleDto: list){
+                        adapter.addItem(getAnoAndTitleDto);
+                        Log.d("Retrofit title: ",getAnoAndTitleDto.getTitle());
+                        Log.d("Retrofit ano: ",getAnoAndTitleDto.getAno().toString());
+
+                    }
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<GetAnoAndTitleDto>> call, Throwable t) {
+                Log.d("Err", t.getMessage());
+            }
+        });
 
         return super.onCreateView(inflater, container, savedInstanceState);
 
