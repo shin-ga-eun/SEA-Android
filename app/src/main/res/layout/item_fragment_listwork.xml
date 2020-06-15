@@ -55,7 +55,6 @@
                     android:layout_marginLeft="5dp"
                     android:layout_marginTop="5dp"
 
-                    android:text="title"
                     android:textColor="#000000"
                     android:textSize="18dp" />
             </LinearLayout>
@@ -69,13 +68,20 @@
                 android:layout_marginRight="10dp"
                 >
 
+                <TextView
+                    android:id="@+id/textAno"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible"
+                    android:textSize="20dp"
+                    />
+
                 <Button
                     android:id="@+id/btnDetail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="더보기"
-                    android:textSize="15dp"
-                    />
+                    android:textSize="15dp" />
 
             </LinearLayout>
 

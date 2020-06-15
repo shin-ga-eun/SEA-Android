@@ -47,7 +47,7 @@ public class RegisterWorkFragment extends Fragment {
     InputMethodManager imm;
     ImageView imgArtWork;
     Button btnArtWork, btnSave;
-    EditText edtArtist, edtTitle, edtDescription, edtPrice;
+    EditText edtTitle, edtDescription, edtPrice;
 
     //MainActivity 참조
     @Override
@@ -58,7 +58,6 @@ public class RegisterWorkFragment extends Fragment {
 
     //keyboard hide method
     private void hideKeyboard(){
-        imm.hideSoftInputFromWindow(edtArtist.getWindowToken(),0);
         imm.hideSoftInputFromWindow(edtTitle.getWindowToken(),0);
         imm.hideSoftInputFromWindow(edtDescription.getWindowToken(),0);
         imm.hideSoftInputFromWindow(edtPrice.getWindowToken(),0);
@@ -71,7 +70,6 @@ public class RegisterWorkFragment extends Fragment {
         imgArtWork = (ImageView) root.findViewById(R.id.imgArtWork);
         btnArtWork = (Button) root.findViewById(R.id.btnArtWork);
         btnSave = (Button) root.findViewById(R.id.btnSave);
-        edtArtist = (EditText) root.findViewById(R.id.edtArtist);
         edtTitle = (EditText) root.findViewById(R.id.edtTitle);
         edtDescription = (EditText) root.findViewById(R.id.edtDescription);
         edtPrice = (EditText) root.findViewById(R.id.edtPrice);
@@ -92,7 +90,6 @@ public class RegisterWorkFragment extends Fragment {
             public void onClick(View view) {
                 final SaveArtItemDto saveArtItemDto = new SaveArtItemDto();
 
-                saveArtItemDto.setArtist(edtArtist.getText().toString());
                 saveArtItemDto.setTitle(edtTitle.getText().toString());
                 saveArtItemDto.setDescription(edtDescription.getText().toString());
                 saveArtItemDto.setPrice(Integer.parseInt(edtPrice.getText().toString()));
