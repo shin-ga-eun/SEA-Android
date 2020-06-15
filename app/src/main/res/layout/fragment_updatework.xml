@@ -49,7 +49,7 @@
             <!--            updateArtWorkDto-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="400dp"
                 android:orientation="vertical"
                 android:layout_marginLeft="10dp"
                 >
@@ -58,6 +58,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -66,8 +67,8 @@
                         android:text="작가 "
                         android:textSize="15dp"/>
 
-                    <EditText
-                        android:id="@+id/edtArtist"
+                    <TextView
+                        android:id="@+id/textArtist"
                         android:layout_width="300dp"
                         android:layout_height="wrap_content"
                         android:hint="작가명"
@@ -78,6 +79,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -98,6 +100,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -121,6 +124,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -132,7 +136,7 @@
                     <EditText
                         android:inputType="number"
                         android:id="@+id/edtPrice"
-                        android:layout_width="200dp"
+                        android:layout_width="150dp"
                         android:layout_height="wrap_content"
                         android:textSize="15dp" />
 
