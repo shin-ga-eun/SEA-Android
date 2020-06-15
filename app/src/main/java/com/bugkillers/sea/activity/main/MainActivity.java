@@ -1,6 +1,7 @@
 package com.bugkillers.sea.activity.main;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Menu;
@@ -9,6 +10,8 @@ import android.widget.Toast;
 import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.main.navigator.managementWork.list.ListWorkFragment;
 import com.bugkillers.sea.activity.main.navigator.managementWork.update.UpdateWorkFragment;
+import com.bugkillers.sea.domain.dto.artItem.GetArtItemDto;
+import com.bugkillers.sea.domain.dto.artItem.RelayArtItemDto;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.navigation.NavigationView;
@@ -25,10 +28,13 @@ public class MainActivity extends AppCompatActivity {
 
     static final int UPDATE = 0;
     static final int LIST = 1;
+    static final int DETAIL = 2;
 
     private AppBarConfiguration mAppBarConfiguration;
     ListWorkFragment listWorkFragment;
     UpdateWorkFragment updateWorkFragment;
+
+    private RelayArtItemDto relayArtItemDto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,6 +84,17 @@ public class MainActivity extends AppCompatActivity {
         else if(index == LIST){
             navController.navigate(R.id.nav_listwork);
         }
+        else if(index == DETAIL){
+            navController.navigate(R.id.nav_detail_artitem);
+        }
+    }
+
+    //detail->main->update
+    public void setRelayArtItemDto(RelayArtItemDto relayArtItemDto){
+        this.relayArtItemDto = relayArtItemDto;
+    }
+    public RelayArtItemDto getRelayArtItemDto(){
+        return relayArtItemDto;
     }
 
     //메인헤더 관련 - 마이페이지 아이콘 클릭시 이동하는 방법?

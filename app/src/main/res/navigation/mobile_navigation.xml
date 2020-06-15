@@ -47,8 +47,10 @@
         tools:layout="@layout/fragment_updatework" />
 
     <fragment
-        android:id="@+id/nav_deletework"
-        android:name="com.bugkillers.sea.activity.main.navigator.managementWork.delete.DeleteWorkFragment"
-        tools:layout="@layout/fragment_deletework" />
+        android:id="@+id/nav_detail_artitem"
+        android:name="com.bugkillers.sea.activity.main.navigator.managementWork.detail.DetailArtItemFragment"
+        tools:layout="@layout/fragment_detail_artitem" />
+
+
 
 </navigation>
