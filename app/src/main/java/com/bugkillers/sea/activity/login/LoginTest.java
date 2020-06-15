@@ -18,8 +18,9 @@ public class LoginTest extends AppCompatActivity {
 
     private Button btn_custom_login;
     private Button btn_custom_login_out;
-    private SessionCallback sessionCallback = new SessionCallback();
+    //private Login.SessionCallback sessionCallback = new Login.SessionCallback();
     Session session;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,12 +30,12 @@ public class LoginTest extends AppCompatActivity {
         btn_custom_login_out = (Button) findViewById(R.id.btn_custom_login_out);
 
         session = Session.getCurrentSession();
-        session.addCallback(sessionCallback);
+        //session.addCallback(sessionCallback);
 
         btn_custom_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                session.open(AuthType.KAKAO_LOGIN_ALL, LoginTest.this);
+                session.open(AuthType.KAKAO_LOGIN_ALL, LoginTest.this);;
             }
         });
 
@@ -57,7 +58,7 @@ public class LoginTest extends AppCompatActivity {
         super.onDestroy();
 
         // 세션 콜백 삭제
-        Session.getCurrentSession().removeCallback(sessionCallback);
+       // Session.getCurrentSession().removeCallback(sessionCallback);
     }
 
     @Override

@@ -1,10 +1,13 @@
 package com.bugkillers.sea.activity.login;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,14 +16,41 @@ import android.widget.Toast;
 import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.main.MainActivity;
 import com.bugkillers.sea.activity.signUp.SignUp;
+import com.bugkillers.sea.domain.dto.member.LoginResponseDto;
+import com.bugkillers.sea.domain.dto.member.MemberLoginDto;
+import com.bugkillers.sea.network.NetRetrofit;
 import com.google.android.material.textfield.TextInputEditText;
+import com.kakao.auth.AuthType;
+import com.kakao.auth.ISessionCallback;
+import com.kakao.auth.Session;
+import com.kakao.network.ErrorResult;
+import com.kakao.usermgmt.UserManagement;
+import com.kakao.usermgmt.callback.MeV2ResponseCallback;
+import com.kakao.usermgmt.response.MeV2Response;
+import com.kakao.usermgmt.response.model.Profile;
+import com.kakao.usermgmt.response.model.UserAccount;
+import com.kakao.util.OptionalBoolean;
+import com.kakao.util.exception.KakaoException;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Login extends AppCompatActivity {
 
     TextInputEditText id,password;
     Button login_btn,login_kakao_btn;
     TextView findPassword,signUp;
-    String isLogin;
+    SharedPreferences memberInfo;
+    SharedPreferences.Editor loginEditor;
+    LoginResponseDto loginResponseDto;
+    String getToken, getRole;
+    SessionCallback sessionCallback = new SessionCallback();
+    Session session;
+    String kakaoEmail=null;
+    MemberLoginDto memberLoginDto;
+    MemberLoginDto kakaoLoginDto;
+    MemberLoginDto originalMemberLoginDto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,60 +62,206 @@ public class Login extends AppCompatActivity {
         login_btn=(Button)findViewById(R.id.login_btn);
         login_kakao_btn=(Button)findViewById(R.id.login_kakao_btn);
         signUp=(TextView)findViewById(R.id.signUp);
+        memberInfo=getSharedPreferences("memberInformation", Activity.MODE_PRIVATE);
+        loginEditor=memberInfo.edit();
+        Intent intent = getIntent();
+
+        session = Session.getCurrentSession();
+        session.addCallback(sessionCallback);
+
+
+        if(intent.getStringExtra("email") !=null){
+            final String isGetEmail = intent.getStringExtra("email");
+            String isGetPassword = intent.getStringExtra("password");
+            System.out.println("이메일 넘어왓나요? "+isGetEmail);
+            System.out.println("비밀번호 넘어왔나요? "+isGetPassword);
+            final MemberLoginDto memberLoginDto =new MemberLoginDto();
+            memberLoginDto.setEmail(intent.getStringExtra("email"));
+            memberLoginDto.setPassword(intent.getStringExtra("password"));
+
+            Call<LoginResponseDto> response = NetRetrofit.getInstance().getNetRetrofitInterface().loginMember(memberLoginDto);
+            response.enqueue(new Callback<LoginResponseDto>() {
+                @Override
+                public void onResponse(Call<LoginResponseDto> call, Response<LoginResponseDto> response) {
+
+                    if(response.isSuccessful()) {
+
+                        loginResponseDto = response.body();
+                        getToken = loginResponseDto.getToken();
+                        System.out.println("카카오 토큰:" + getToken);
+                        getRole = loginResponseDto.getRole();
+                        System.out.println("카카오 이메일:"+getRole);
+
+                        loginEditor.putString("TOKEN",getToken);
+                        loginEditor.putString("ROLE", getRole);
+                        loginEditor.commit();
+
+                    }
+                    Toast.makeText(Login.this,isGetEmail+"님, 로그인 성공하셨습니다!",Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onFailure(Call<LoginResponseDto> call, Throwable t) {
+                    Toast.makeText(Login.this,"로그인 실패",Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isLogin=id.getText().toString()+"/"+password.getText().toString();
+                originalMemberLoginDto =new MemberLoginDto();
+                originalMemberLoginDto.setEmail(id.getText().toString());
+                originalMemberLoginDto.setPassword(password.getText().toString());
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
+                Call<LoginResponseDto> response = NetRetrofit.getInstance().getNetRetrofitInterface().loginMember(originalMemberLoginDto);
+                response.enqueue(new Callback<LoginResponseDto>() {
                     @Override
-                    public void run() {
+                    public void onResponse(Call<LoginResponseDto> call, Response<LoginResponseDto> response) {
 
-                        Toast.makeText(Login.this,"로그인정보: "+isLogin,Toast.LENGTH_SHORT).show();
+                        if(response.isSuccessful()) {
+
+                            loginResponseDto = response.body();
+                            getToken = loginResponseDto.getToken();
+                            getRole = loginResponseDto.getRole();
+
+                            loginEditor.putString("TOKEN",getToken);
+                            loginEditor.putString("ROLE", getRole);
+                            loginEditor.commit();
+
+                        }
+                        Toast.makeText(Login.this,"ROLE: "+memberInfo.getString("ROLE","")+"계정으로 로그인 완료",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent (getApplicationContext(), MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
-                },1000);
+
+                    @Override
+                    public void onFailure(Call<LoginResponseDto> call, Throwable t) {
+                        Toast.makeText(Login.this,"로그인 실패",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
         login_kakao_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isLogin=id.getText().toString()+"/"+password.getText().toString();
+                session.open(AuthType.KAKAO_LOGIN_ALL,Login.this);
 
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-
-                        Toast.makeText(Login.this,"로그인정보: "+isLogin,Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent (getApplicationContext(), LoginTest.class);
-                        startActivity(intent);
-                        finish();
-                    }
-                },1000);
             }
         });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
 
                         Toast.makeText(Login.this,"회원가입 화면으로 넘어갑니다",Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent (getApplicationContext(), SignUp.class);
                         startActivity(intent);
                         finish();
-                    }
-                },1000);
+
             }
         });
     }
+
+    public class SessionCallback implements ISessionCallback {
+
+        // 로그인에 성공한 상태
+        @Override
+        public void onSessionOpened() {
+            requestMe();
+        }
+
+        // 로그인에 실패한 상태
+        @Override
+        public void onSessionOpenFailed(KakaoException exception) {
+            Log.e("SessionCallback :: ", "onSessionOpenFailed : " + exception.getMessage());
+        }
+
+        // 사용자 정보 요청
+        public void requestMe() {
+            UserManagement.getInstance()
+                    .me(new MeV2ResponseCallback() {
+                        @Override
+                        public void onSessionClosed(ErrorResult errorResult) {
+                            Log.e("KAKAO_API", "세션이 닫혀 있음: " + errorResult);
+                        }
+
+                        @Override
+                        public void onFailure(ErrorResult errorResult) {
+                            Log.e("KAKAO_API", "사용자 정보 요청 실패: " + errorResult);
+                        }
+
+                        @Override
+                        public void onSuccess(MeV2Response result) {
+                            Intent intent = new Intent(getApplicationContext(), SignUp.class);
+
+                            Log.i("KAKAO_API", "사용자 아이디: " + result.getId());
+
+                            UserAccount kakaoAccount = result.getKakaoAccount();
+                            if (kakaoAccount != null) {
+
+                                // 이메일
+                                String email = kakaoAccount.getEmail();
+
+                                if (email != null) {
+                                    Log.i("KAKAO_API", "email: " + email);
+                                    intent.putExtra("email", email);
+                                    kakaoEmail =email;
+
+                                } else if (kakaoAccount.emailNeedsAgreement() == OptionalBoolean.TRUE) {
+                                    // 동의 요청 후 이메일 획득 가능
+                                    // 단, 선택 동의로 설정되어 있다면 서비스 이용 시나리오 상에서 반드시 필요한 경우에만 요청해야 합니다.
+
+                                } else {
+                                    // 이메일 획득 불가
+                                }
+
+                                // 프로필
+                                Profile profile = kakaoAccount.getProfile();
+
+                                if (profile != null) {
+                                    Log.d("KAKAO_API", "nickname: " + profile.getNickname());
+                                    intent.putExtra("name",profile.getNickname());
+                                    Log.d("KAKAO_API", "profile image: " + profile.getProfileImageUrl());
+                                    Log.d("KAKAO_API", "thumbnail image: " + profile.getThumbnailImageUrl());
+
+                                } else if (kakaoAccount.profileNeedsAgreement() == OptionalBoolean.TRUE) {
+                                    // 동의 요청 후 프로필 정보 획득 가능
+
+                                } else {
+                                    // 프로필 획득 불가
+                                }
+
+                            }
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        // 세션 콜백 삭제
+        // Session.getCurrentSession().removeCallback(sessionCallback);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        // 카카오톡|스토리 간편로그인 실행 결과를 받아서 SDK로 전달
+        if (Session.getCurrentSession().handleActivityResult(requestCode, resultCode, data)) {
+            return;
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
 }
