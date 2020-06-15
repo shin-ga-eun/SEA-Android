@@ -1,5 +1,6 @@
 package com.bugkillers.sea.network;
 
+import com.bugkillers.sea.domain.dto.artItem.GetAnoAndTitleDto;
 import com.bugkillers.sea.domain.dto.artItem.GetArtItemDto;
 import com.bugkillers.sea.domain.dto.artItem.SaveArtItemDto;
 import com.bugkillers.sea.domain.dto.artItem.UpdateArtItemDto;
@@ -25,6 +26,9 @@ public interface RetrofitInterface {
 
     @PUT("/sea/artItem/{ano}")
     Call<Void> updateArtItem (@Path("ano") Long ano, @Body UpdateArtItemDto updateArtItemDto);
+
+    @GET("/sea/artItem/{ano}")
+    Call<GetAnoAndTitleDto> getListArtItem (@Path("ano") Long ano);
 
 
 }

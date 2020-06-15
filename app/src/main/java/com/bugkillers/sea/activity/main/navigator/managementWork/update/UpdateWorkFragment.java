@@ -2,7 +2,6 @@ package com.bugkillers.sea.activity.main.navigator.managementWork.update;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,7 +10,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextClock;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +19,6 @@ import androidx.fragment.app.Fragment;
 import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.main.MainActivity;
 import com.bugkillers.sea.domain.dto.artItem.GetArtItemDto;
-import com.bugkillers.sea.domain.dto.artItem.RelayArtItemDto;
 import com.bugkillers.sea.domain.dto.artItem.UpdateArtItemDto;
 import com.bugkillers.sea.network.NetRetrofit;
 
@@ -72,12 +69,11 @@ public class UpdateWorkFragment extends Fragment {
         edtPrice = (EditText) root.findViewById(R.id.edtPrice);
         imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
-
-        final RelayArtItemDto relayArtItemDto = mainActivity.getRelayArtItemDto();
-        textArtist.setText(relayArtItemDto.getArtist());
-        edtTitle.setText(relayArtItemDto.getTitle());
-        edtDescription.setText(relayArtItemDto.getDescription());
-        edtPrice.setText(""+relayArtItemDto.getPrice());
+        final GetArtItemDto getArtItemDto = mainActivity.getRelay();
+        textArtist.setText(getArtItemDto.getArtist());
+        edtTitle.setText(getArtItemDto.getTitle());
+        edtDescription.setText(getArtItemDto.getDescription());
+        edtPrice.setText(""+getArtItemDto.getPrice());
 
         //btnArtWork click
         btnArtWork.setOnClickListener(new View.OnClickListener() {
@@ -97,7 +93,7 @@ public class UpdateWorkFragment extends Fragment {
                 updateArtItemDto.setDescription(edtDescription.getText().toString());
                 updateArtItemDto.setPrice(Integer.parseInt(edtPrice.getText().toString()));
 
-                Call<Void> response = NetRetrofit.getInstance().getNetRetrofitInterface().updateArtItem(relayArtItemDto.getAno(), updateArtItemDto);
+                Call<Void> response = NetRetrofit.getInstance().getNetRetrofitInterface().updateArtItem(getArtItemDto.getAno(), updateArtItemDto);
 
                 response.enqueue(new Callback<Void>() {
                     @Override

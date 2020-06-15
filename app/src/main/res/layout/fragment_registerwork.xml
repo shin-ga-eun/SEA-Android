@@ -58,26 +58,6 @@
                 android:layout_marginLeft="10dp"
                 >
 
-                <!--                작가-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="70dp"
-                        android:layout_height="wrap_content"
-                        android:text="작가 "
-                        android:textSize="15dp"/>
-
-                    <EditText
-                        android:id="@+id/edtArtist"
-                        android:layout_width="300dp"
-                        android:layout_height="wrap_content"
-                        android:hint="작가명"
-                        android:textSize="15dp" />
-                </LinearLayout>
-
                 <!--                제목 -->
                 <LinearLayout
                     android:layout_width="match_parent"

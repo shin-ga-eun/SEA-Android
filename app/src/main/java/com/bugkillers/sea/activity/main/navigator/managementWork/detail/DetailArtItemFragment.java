@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,10 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.main.MainActivity;
 import com.bugkillers.sea.domain.dto.artItem.GetArtItemDto;
-import com.bugkillers.sea.domain.dto.artItem.RelayArtItemDto;
 import com.bugkillers.sea.network.NetRetrofit;
-
-import org.w3c.dom.Text;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,10 +28,9 @@ public class DetailArtItemFragment extends Fragment {
 
     MainActivity mainActivity;
 
-    TextView textArtist, textTitle, textDescription, textPrice;
+    TextView textArtist, textTitle, textDescription, textPrice, textCreate_at, textModify_at;
     Button btnUpdate, btnDelete;
     GetArtItemDto getArtItemDto;
-
 
     static final int UPDATE = 0;
     static final int LIST = 1;
@@ -57,11 +51,13 @@ public class DetailArtItemFragment extends Fragment {
         textTitle = (TextView) root.findViewById(R.id.textTitle);
         textDescription = (TextView) root.findViewById(R.id.textDescription);
         textPrice = (TextView) root.findViewById(R.id.textPrice);
+        textCreate_at = (TextView) root.findViewById(R.id.textCreate_at);
+        textModify_at = (TextView) root.findViewById(R.id.textModify_at);
         btnUpdate = (Button) root.findViewById(R.id.btnUpdate);
         btnDelete = (Button) root.findViewById(R.id.btnDelete);
 
         //select artItem by ano
-        final Long ano = Long.parseLong("2"); //test
+        final Long ano = mainActivity.getAno();
 
         Call<GetArtItemDto> response= NetRetrofit.getInstance().getNetRetrofitInterface().getArtItem(ano);
         response.enqueue(new Callback<GetArtItemDto>() {
@@ -75,6 +71,9 @@ public class DetailArtItemFragment extends Fragment {
                     textTitle.setText(getArtItemDto.getTitle());
                     textDescription.setText(getArtItemDto.getDescription());
                     textPrice.setText(""+getArtItemDto.getPrice());
+                    textCreate_at.setText(getArtItemDto.getCreate_at());
+                    textModify_at.setText(getArtItemDto.getModify_at());
+
                 }
 
             }
@@ -89,14 +88,7 @@ public class DetailArtItemFragment extends Fragment {
         btnUpdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RelayArtItemDto relayArtItemDto = new RelayArtItemDto();
-                relayArtItemDto.setAno(ano);
-                relayArtItemDto.setArtist(getArtItemDto.getArtist());
-                relayArtItemDto.setTitle(getArtItemDto.getTitle());
-                relayArtItemDto.setDescription(getArtItemDto.getDescription());
-                relayArtItemDto.setPrice(getArtItemDto.getPrice());
-
-                mainActivity.setRelayArtItemDto(relayArtItemDto);
+                mainActivity.setRelay(getArtItemDto);
                 mainActivity.onFragmentChange(UPDATE);
             }
         });

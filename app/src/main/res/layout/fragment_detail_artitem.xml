@@ -126,7 +126,6 @@
                         android:textSize="15dp"/>
 
                     <TextView
-                        android:inputType="number"
                         android:id="@+id/textPrice"
                         android:layout_width="150dp"
                         android:layout_height="wrap_content"
@@ -137,6 +136,49 @@
                         android:layout_height="wrap_content"
                         android:text="원 "
                         android:textSize="15dp"/>
+                </LinearLayout>
+
+                <!--                등록일 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="등록일 "
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/textCreate_at"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp" />
+
+                </LinearLayout>
+
+
+                <!--                수정일 -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="70dp"
+                        android:layout_height="wrap_content"
+                        android:text="수정일 "
+                        android:textSize="15dp"/>
+
+                    <TextView
+                        android:id="@+id/textModify_at"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:textSize="15dp" />
+
                 </LinearLayout>
 
                 <!--                btnUpdate, btnDelete-->
