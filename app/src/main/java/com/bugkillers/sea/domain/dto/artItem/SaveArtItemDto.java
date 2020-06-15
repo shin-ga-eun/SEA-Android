@@ -1,11 +1,10 @@
 package com.bugkillers.sea.domain.dto.artItem;
 
-public class saveArtItemDto {
+public class SaveArtItemDto {
     private String artist;
     private String title;
     private String description;
     private int price;
-    private String image;
 
     public String getArtist() {
         return artist;
@@ -39,11 +38,5 @@ public class saveArtItemDto {
         this.price = price;
     }
 
-    public String getImage() {
-        return image;
-    }
 
-    public void setImage(String image) {
-        this.image = image;
-    }
 }

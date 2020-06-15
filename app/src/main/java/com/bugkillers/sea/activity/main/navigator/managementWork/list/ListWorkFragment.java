@@ -33,7 +33,7 @@ public class ListWorkFragment extends Fragment {
     Button btnUpdateWork, btnDeleteWork;
 
     static final int UPDATE = 0;
-    static final int DELETE = 1;
+    static final int LIST = 1;
 
     //MainActivity 참조
     @Override
@@ -69,7 +69,6 @@ public class ListWorkFragment extends Fragment {
         btnDeleteWork.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mainActivity.onFragmentChange(DELETE);
 
                 AlertDialog.Builder alert_confirm = new AlertDialog.Builder(getContext());
                 alert_confirm.setMessage("작품 리스트에서 삭제하시겠습니까?\n현재 대여중인 작품이라면 대여기간 종료 후, 다시 시도해주세요..").setCancelable(false).setPositiveButton("삭제",
