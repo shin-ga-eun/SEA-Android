@@ -20,6 +20,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.fragment.app.ListFragment;
 
 import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.main.MainActivity;
@@ -34,7 +35,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.http.DELETE;
 
-public class ListWorkFragment extends Fragment {
+public class ListWorkFragment extends ListFragment {
 
     MainActivity mainActivity;
 
@@ -68,6 +69,8 @@ public class ListWorkFragment extends Fragment {
         imgArtWork = (ImageView) root.findViewById(R.id.imgArtWork);
         btnDetail = (Button) root.findViewById(R.id.btnDetail);
         textTitle = (TextView) root.findViewById(R.id.textTitle);
+
+
 
         //btnDetail click
         btnDetail.setOnClickListener(new View.OnClickListener() {
