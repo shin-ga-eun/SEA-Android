@@ -31,7 +31,6 @@ public class SignUp extends AppCompatActivity {
     MemberRole isRole;
     String isSignUp;
     RadioButton artist,consumer;
-    MemberLoginDto memberLoginDto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,43 +49,10 @@ public class SignUp extends AppCompatActivity {
         consumer=(RadioButton)findViewById(R.id.consumer);
         Intent intent = getIntent();
 
-        if(intent.getStringExtra("email") !=null){
-            final String alreadyEmail = intent.getStringExtra("email");
-            final String alreadyName = intent.getStringExtra("name");
-
-            Log.d("alreadyEmail", alreadyEmail);
-            Log.d("alreadyName", alreadyName);
-            IsMemberDto isMemberDto = new IsMemberDto();
-            isMemberDto.setEmail(alreadyEmail);
-
-            Call<MemberLoginDto> response =NetRetrofit.getInstance().getNetRetrofitInterface().isMember(isMemberDto);
-            response.enqueue(new Callback<MemberLoginDto>() {
-                @Override
-                public void onResponse(Call<MemberLoginDto> call, Response<MemberLoginDto> response) {
-                    if(response.isSuccessful()){
-                        memberLoginDto = response.body();
-                        String isEmail = memberLoginDto.getEmail();
-                        String isPassword = memberLoginDto.getPassword();
-
-                        if(!(isEmail.equals("None"))){
-                            Intent loginIntent = new Intent(getApplicationContext(),Login.class);
-                            loginIntent.putExtra("email",isEmail);
-                            loginIntent.putExtra("password",isPassword);
-                            startActivity(loginIntent);
-                            finish();
-                        }
-                        if(memberLoginDto.getEmail().equals("None")){
-                            System.out.println("회원이 아닙니다 ");
-                        }
-                    }
-                }
-
-                @Override
-                public void onFailure(Call<MemberLoginDto> call, Throwable t) {
-                    Log.d("Err", t.getMessage());
-                }
-            });
-        }
+        System.out.println("닉네임 넘어왔니? "+intent.getStringExtra("name"));
+        System.out.println("이메일 넘어왔니?"+intent.getStringExtra("email"));
+        name.setText(intent.getStringExtra("name"));
+        email.setText(intent.getStringExtra("email"));
 
         artist.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -134,7 +100,6 @@ public class SignUp extends AppCompatActivity {
                         Toast.makeText(SignUp.this, "회원가입에 실패하셨습니다", Toast.LENGTH_SHORT).show();
                     }
                 });
-
             }
         });
     }

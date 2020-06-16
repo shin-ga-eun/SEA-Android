@@ -32,7 +32,7 @@ public interface RetrofitInterface {
     Call<LoginResponseDto> loginMember (@Body MemberLoginDto memberLoginDto);
 
     @POST("/sea/isMember")
-    Call<MemberLoginDto> isMember (@Body IsMemberDto isMemberDto);
+    Call<LoginResponseDto> isMember (@Body IsMemberDto isMemberDto);
 
     @POST("/sea/artist/test")
     Call<String> artistTest ();
