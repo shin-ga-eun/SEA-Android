@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bugkillers.sea.R;
+import com.bugkillers.sea.activity.main.CustomerActivity;
 import com.bugkillers.sea.activity.main.MainActivity;
 import com.bugkillers.sea.activity.signUp.SignUp;
 import com.bugkillers.sea.domain.dto.member.IsMemberDto;
@@ -90,10 +91,20 @@ public class Login extends AppCompatActivity {
                             loginEditor.commit();
 
                         }
-                        Toast.makeText(Login.this,"ROLE: "+memberInfo.getString("ROLE","")+"계정으로 로그인 완료",Toast.LENGTH_SHORT).show();
-                        Intent intent = new Intent (getApplicationContext(), MainActivity.class);
-                        startActivity(intent);
-                        finish();
+                        System.out.println("role>>>>>>"+getRole);
+                        if(getRole.equals("CUSTOMER")){
+                            Toast.makeText(Login.this,"ROLE: "+memberInfo.getString("ROLE","")+"계정으로 로그인 완료",Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent (getApplicationContext(), CustomerActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+                        if(getRole.equals("ARTIST")) {
+                            Toast.makeText(Login.this, "ROLE: " + memberInfo.getString("ROLE", "") + "계정으로 로그인 완료", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+
                     }
 
                     @Override
@@ -186,10 +197,19 @@ public class Login extends AppCompatActivity {
                                                     loginEditor.putString("TOKEN",kakaoResponseDto.getToken());
                                                     loginEditor.putString("ROLE", kakaoResponseDto.getRole());
                                                     loginEditor.commit();
-                                                    Toast.makeText(Login.this,"ROLE: "+memberInfo.getString("ROLE","")+"계정으로 로그인 완료",Toast.LENGTH_SHORT).show();
-                                                    Intent intent = new Intent (getApplicationContext(), MainActivity.class);
-                                                    startActivity(intent);
-                                                    finish();
+
+                                                    if(memberInfo.getString("ROLE","").equals("CUSTOMER")){
+                                                        Toast.makeText(Login.this,"ROLE: "+memberInfo.getString("ROLE","")+"계정으로 로그인 완료",Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent (getApplicationContext(), CustomerActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
+                                                    if(memberInfo.getString("ROLE","").equals("ARTIST")) {
+                                                        Toast.makeText(Login.this, "ROLE: " + memberInfo.getString("ROLE", "") + "계정으로 로그인 완료", Toast.LENGTH_SHORT).show();
+                                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                                        startActivity(intent);
+                                                        finish();
+                                                    }
                                                 }
                                             }
                                         }
