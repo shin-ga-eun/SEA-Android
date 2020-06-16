@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.bugkillers.sea.R;
 import com.bugkillers.sea.activity.main.MainActivity;
 import com.bugkillers.sea.activity.signUp.SignUp;
+import com.bugkillers.sea.domain.dto.member.IsMemberDto;
 import com.bugkillers.sea.domain.dto.member.LoginResponseDto;
 import com.bugkillers.sea.domain.dto.member.MemberLoginDto;
 import com.bugkillers.sea.network.NetRetrofit;
@@ -44,14 +45,12 @@ public class Login extends AppCompatActivity {
     SharedPreferences memberInfo;
     SharedPreferences.Editor loginEditor;
     LoginResponseDto loginResponseDto;
+    LoginResponseDto kakaoResponseDto;
     String getToken, getRole;
     SessionCallback sessionCallback = new SessionCallback();
     Session session;
     String kakaoEmail=null;
-    MemberLoginDto memberLoginDto;
-    MemberLoginDto kakaoLoginDto;
     MemberLoginDto originalMemberLoginDto;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,51 +63,9 @@ public class Login extends AppCompatActivity {
         signUp=(TextView)findViewById(R.id.signUp);
         memberInfo=getSharedPreferences("memberInformation", Activity.MODE_PRIVATE);
         loginEditor=memberInfo.edit();
-        Intent intent = getIntent();
 
         session = Session.getCurrentSession();
         session.addCallback(sessionCallback);
-
-
-        if(intent.getStringExtra("email") !=null){
-            final String isGetEmail = intent.getStringExtra("email");
-            String isGetPassword = intent.getStringExtra("password");
-            System.out.println("이메일 넘어왓나요? "+isGetEmail);
-            System.out.println("비밀번호 넘어왔나요? "+isGetPassword);
-            final MemberLoginDto memberLoginDto =new MemberLoginDto();
-            memberLoginDto.setEmail(intent.getStringExtra("email"));
-            memberLoginDto.setPassword(intent.getStringExtra("password"));
-
-            Call<LoginResponseDto> response = NetRetrofit.getInstance().getNetRetrofitInterface().loginMember(memberLoginDto);
-            response.enqueue(new Callback<LoginResponseDto>() {
-                @Override
-                public void onResponse(Call<LoginResponseDto> call, Response<LoginResponseDto> response) {
-
-                    if(response.isSuccessful()) {
-
-                        loginResponseDto = response.body();
-                        getToken = loginResponseDto.getToken();
-                        System.out.println("카카오 토큰:" + getToken);
-                        getRole = loginResponseDto.getRole();
-                        System.out.println("카카오 이메일:"+getRole);
-
-                        loginEditor.putString("TOKEN",getToken);
-                        loginEditor.putString("ROLE", getRole);
-                        loginEditor.commit();
-
-                    }
-                    Toast.makeText(Login.this,isGetEmail+"님, 로그인 성공하셨습니다!",Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent (getApplicationContext(), MainActivity.class);
-                    startActivity(intent);
-                    finish();
-                }
-
-                @Override
-                public void onFailure(Call<LoginResponseDto> call, Throwable t) {
-                    Toast.makeText(Login.this,"로그인 실패",Toast.LENGTH_SHORT).show();
-                }
-            });
-        }
 
         login_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,7 +109,6 @@ public class Login extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 session.open(AuthType.KAKAO_LOGIN_ALL,Login.this);
-
             }
         });
 
@@ -199,7 +155,7 @@ public class Login extends AppCompatActivity {
 
                         @Override
                         public void onSuccess(MeV2Response result) {
-                            Intent intent = new Intent(getApplicationContext(), SignUp.class);
+                            final Intent intent = new Intent(getApplicationContext(), SignUp.class);
 
                             Log.i("KAKAO_API", "사용자 아이디: " + result.getId());
 
@@ -211,8 +167,38 @@ public class Login extends AppCompatActivity {
 
                                 if (email != null) {
                                     Log.i("KAKAO_API", "email: " + email);
-                                    intent.putExtra("email", email);
                                     kakaoEmail =email;
+                                    System.out.println("카카오 메소드 안에서의 카카오 이메일 "+ kakaoEmail);
+                                    intent.putExtra("email",email);
+                                    IsMemberDto isMemberDto = new IsMemberDto();
+                                    isMemberDto.setEmail(kakaoEmail);
+                                    System.out.println("isMemberDto에서의 이메일 "+isMemberDto.getEmail());
+                                    Call<LoginResponseDto> kakaoResponse = NetRetrofit.getInstance().getNetRetrofitInterface().isMember(isMemberDto);
+                                    kakaoResponse.enqueue(new Callback<LoginResponseDto>() {
+                                        @Override
+                                        public void onResponse(Call<LoginResponseDto> call, Response<LoginResponseDto> response) {
+                                            if(response.isSuccessful()){
+                                                 kakaoResponseDto = response.body();
+                                                 if(kakaoResponseDto.getRole().equals("None")){
+
+                                                 }
+                                                if(!(kakaoResponseDto.getRole().equals("None"))){
+                                                    loginEditor.putString("TOKEN",kakaoResponseDto.getToken());
+                                                    loginEditor.putString("ROLE", kakaoResponseDto.getRole());
+                                                    loginEditor.commit();
+                                                    Toast.makeText(Login.this,"ROLE: "+memberInfo.getString("ROLE","")+"계정으로 로그인 완료",Toast.LENGTH_SHORT).show();
+                                                    Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+                                                    startActivity(intent);
+                                                    finish();
+                                                }
+                                            }
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<LoginResponseDto> call, Throwable t) {
+
+                                        }
+                                    });
 
                                 } else if (kakaoAccount.emailNeedsAgreement() == OptionalBoolean.TRUE) {
                                     // 동의 요청 후 이메일 획득 가능
@@ -238,9 +224,9 @@ public class Login extends AppCompatActivity {
                                     // 프로필 획득 불가
                                 }
 
+                                startActivity(intent);
+                                finish();
                             }
-                            startActivity(intent);
-                            finish();
                         }
                     });
         }
